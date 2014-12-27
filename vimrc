@@ -13,3 +13,5 @@ set ruler
 imap kj <Esc> :w<Esc>
 nmap gb gT
 nmap <Leader>v :tabe $MYVIMRC <CR>
+
+autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
