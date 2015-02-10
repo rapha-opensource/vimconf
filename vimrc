@@ -9,6 +9,7 @@ filetype plugin indent on    " enable loading indent file for filetype
 set autochdir
 set number
 set ruler
+set hls
 
 imap kj <Esc> :w<Esc>
 nmap gb gT
