@@ -15,4 +15,7 @@ imap kj <Esc> :w<Esc>
 nmap gb gT
 nmap <Leader>v :tabe $MYVIMRC <CR>
 
+"Ctrl+n to turn off highlighting
+nmap <silent> <C-n> :noh<CR>
+
 autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
