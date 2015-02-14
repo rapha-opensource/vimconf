@@ -9,11 +9,18 @@ filetype plugin indent on    " enable loading indent file for filetype
 set autochdir
 set number
 set ruler
-set hls
+set hls is ic scs
+set mouse=a
+
+" command-T options:
+" caches every dirs, uses more memory.
+let g:CommandTMaxCachedDirectories=0 
 
 imap kj <Esc> :w<Esc>
 nmap gb gT
+nmap <C-x> :bd<CR>
 nmap <Leader>v :tabe $MYVIMRC <CR>
+
 
 "Ctrl+n to turn off highlighting
 nmap <silent> <C-n> :noh<CR>
