@@ -11,6 +11,8 @@ set number
 set ruler
 set hls is ic scs
 set mouse=a
+set background=dark
+colorscheme solarized
 
 " command-T options:
 " caches every dirs, uses more memory.
