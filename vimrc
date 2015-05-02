@@ -17,14 +17,14 @@ colorscheme solarized
 " command-T options:
 " caches every dirs, uses more memory.
 let g:CommandTMaxCachedDirectories=0 
+let g:CommandTWildIgnore=&wildignore . "*.pyc,venv/**"
 
-imap kj <Esc> :w<Esc>
+imap kj <Esc> :w<CR>
 nmap gb gT
 nmap <C-x> :bd<CR>
 nmap <Leader>v :tabe $MYVIMRC <CR>
-
-
 "Ctrl+n to turn off highlighting
 nmap <silent> <C-n> :noh<CR>
+nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>:w<CR>
 
 autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
