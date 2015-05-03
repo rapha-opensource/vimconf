@@ -25,6 +25,11 @@ nmap <C-x> :bd<CR>
 nmap <Leader>v :tabe $MYVIMRC <CR>
 "Ctrl+n to turn off highlighting
 nmap <silent> <C-n> :noh<CR>
-nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<CR>
+
+" ----- Python specific mapping --------------------------------------------------
+" add a breakpoint in python
+autocmd FileType python nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<CR>
+" clear all breakpoints in python
+autocmd FileType python nmap <Leader>cbp :g/import pdb; pdb.set_trace/d<CR>:w<CR>
 
 autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
