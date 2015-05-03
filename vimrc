@@ -25,6 +25,6 @@ nmap <C-x> :bd<CR>
 nmap <Leader>v :tabe $MYVIMRC <CR>
 "Ctrl+n to turn off highlighting
 nmap <silent> <C-n> :noh<CR>
-nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>:w<CR>
+nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<CR>
 
 autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
