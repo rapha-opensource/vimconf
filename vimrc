@@ -17,7 +17,7 @@ colorscheme solarized
 " command-T options:
 " caches every dirs, uses more memory.
 let g:CommandTMaxCachedDirectories=0 
-let g:CommandTWildIgnore=&wildignore . "*/__pycache__/**,*.pyc,venv/**"
+let g:CommandTWildIgnore=&wildignore . "*/__pycache__/**,*.pyc,venv/**,*jpg,*.dg,*.svg"
 
 imap kj <Esc>:w<CR>
 nmap gb gT
