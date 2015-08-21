@@ -1,15 +1,15 @@
-* .vim in a hurry
+# Vim Setup for development
 This repo contains everything you need to make a .vim directory
 
-1/ Clone it locally anywhere on you filesystem
+## How to install
 
-git clone https://github.com/bokehsensei/vimconf.git
-cd vimconf
-git submodule init
-git submodule update
+1. git clone https://github.com/bokehsensei/vimconf.git
+1. cd vimconf
+1. git submodule init
+1. git submodule update
 
-rm -rf ~/.vim  # if need be
+1. rm -rf ~/.vim  # if need be
 
-cd ~
-ln -s ~/repo/vimconf  .vim # assuming ~/repo is where you cloned vimconf
+1. cd ~
+1. ln -s ~/repo/vimconf  .vim # assuming ~/repo is where you cloned vimconf
 
