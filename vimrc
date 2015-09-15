@@ -16,6 +16,11 @@ set mouse=a
 set background=dark
 colorscheme solarized
 
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+
 " command-T options:
 " caches every dirs, uses more memory.
 let g:CommandTMaxCachedDirectories=0 
@@ -38,3 +43,8 @@ autocmd FileType python nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<C
 autocmd FileType python nmap <Leader>cbp :g/import pdb; pdb.set_trace/d<CR>:w<CR>
 
 autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
+
+" Javascript specific
+"
+" apply JSX syntax rules to JS files:
+let g:jsx_ext_required = 0
