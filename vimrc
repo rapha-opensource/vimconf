@@ -14,6 +14,9 @@ set ruler
 set hls is ic scs
 set mouse=a
 set background=dark
+if !has('gui_running')
+  let g:solarized_termtrans=1
+endif
 colorscheme solarized
 
 set tabstop=4
