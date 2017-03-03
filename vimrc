@@ -29,7 +29,7 @@ set switchbuf+=usetab,newtab
 " caches every dirs, uses more memory.
 let g:CommandTMaxCachedDirectories=0 
 "let g:CommandTWildIgnore=&wildignore . "*/__pycache__/**,*.pyc,venv/**,*jpg,*.dg,*.svg,~/repo/react-app/node_modules/**,~/repo/react-app/build/**"
-let g:CommandTWildIgnore="*.pyc,node_modules/**,build/**,img/**,font/**,css/**"
+let g:CommandTWildIgnore="*.pyc,node_modules/**,build/**,img/**,font/**"
 
 imap kj <Esc>:w<CR>
 nmap gb gT
@@ -41,6 +41,7 @@ nmap <silent> <C-n> :noh<CR>
 "set wildignore+=~/repo/api/venv/**,*.pyc
 nmap <Leader>] :execute "vimgrep /" . expand("<cword>") . "/j ~/repo/api/**/*.py" <Bar> cw<CR>
 nmap <Leader>= :w !pbcopy<CR><CR>
+nmap <Leader>' :s/#012/\r/g<CR>
 
 " ----- Python specific mapping --------------------------------------------------
 " add a breakpoint in python
@@ -80,15 +81,28 @@ function! FindInPyFiles()
     call SearchPyFiles(l:pattern)
 endfunction
 
+function! FindInJavaFiles()
+    call inputsave()
+    let pattern = input('Find in Java files: ')
+    call inputrestore()
+    call SearchJavaFiles(l:pattern)
+endfunction
+
 function! SearchJsFiles(pattern)
-    call SearchAnyFiles("--include \\*.js --exclude-dir build --exclude-dir node-modules", a:pattern, "")
+    call SearchAnyFiles("--exclude bundle.js --include \\*.js --exclude-dir build --exclude-dir node-modules", a:pattern, "")
 endfunction
 
 function! SearchPyFiles(pattern)
     call SearchAnyFiles("--include \\*.py ", a:pattern, "/rebase")
 endfunction
 
+function! SearchJavaFiles(pattern)
+    call SearchAnyFiles("--include \\*.java ", a:pattern, "/rebase")
+endfunction
+
 nmap <Leader>[ :call SearchPyFiles(expand('<cword>'))<CR><CR>
 nmap <Leader>js :call SearchJsFiles(expand('<cword>'))<CR><CR>
+nmap <Leader>jv :call SearchJavaFiles(expand('<cword>'))<CR><CR>
 nmap <Leader>fjs :call FindInJSFiles()<CR><CR>
+nmap <Leader>fjv :call FindInJavaFiles()<CR><CR>
 nmap <Leader>fpy :call FindInPyFiles()<CR><CR>
