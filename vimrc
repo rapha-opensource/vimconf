@@ -13,6 +13,7 @@ set number
 set ruler
 set hls is ic scs
 set mouse=a
+set clipboard=unnamed " so you can use * as the buffer to copy into clipboard
 set background=dark
 if !has('gui_running')
   let g:solarized_termtrans=1
@@ -42,9 +43,11 @@ nmap <Leader>sv :source $MYVIMRC <CR>
 "Ctrl+n to turn off highlighting
 nmap <silent> <C-n> :noh<CR>
 "set wildignore+=~/repo/api/venv/**,*.pyc
-nmap <Leader>] :execute "vimgrep /" . expand("<cword>") . "/j ~/repo/api/**/*.py" <Bar> cw<CR>
-nmap <Leader>= :w !pbcopy<CR><CR>
+nmap <Leader>] :execute "vimgrep /" . expand("<cword>") . "/j **/*.py" <Bar> cw<CR>
+vmap <Leader>= :w !pbcopy<CR><CR>
 nmap <Leader>' :s/#012/\r/g<CR>
+nmap <Leader>( :s/(\(.*\))/(\r\1\r)<CR>
+nmap <Leader>, :s/, /,\r/g<CR>
 
 " ----- Python specific mapping --------------------------------------------------
 " add a breakpoint in python
@@ -96,7 +99,7 @@ function! SearchJsFiles(pattern)
 endfunction
 
 function! SearchPyFiles(pattern)
-    call SearchAnyFiles("--include \\*.py ", a:pattern, "/rebase")
+    call SearchAnyFiles("--include \\*.py ", a:pattern, "/hoisted")
 endfunction
 
 function! SearchJavaFiles(pattern)
