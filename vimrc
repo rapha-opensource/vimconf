@@ -45,15 +45,15 @@ nmap <silent> <C-n> :noh<CR>
 "set wildignore+=~/repo/api/venv/**,*.pyc
 nmap <Leader>] :execute "vimgrep /" . expand("<cword>") . "/j **/*.py" <Bar> cw<CR>
 vmap <Leader>= :w !pbcopy<CR><CR>
-nmap <Leader>' :s/#012/\r/g<CR>
+"nmap <Leader>' :s/#012/\r/g<CR>
 nmap <Leader>( :s/(\(.*\))/(\r\1\r)<CR>
 nmap <Leader>, :s/, /,\r/g<CR>
 
 " ----- Python specific mapping --------------------------------------------------
 " add a breakpoint in python
-autocmd FileType python nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<CR>
+"autocmd FileType python nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<CR>
 " clear all breakpoints in python
-autocmd FileType python nmap <Leader>cbp :g/import pdb; pdb.set_trace/d<CR>:w<CR>
+"autocmd FileType python nmap <Leader>cbp :g/import pdb; pdb.set_trace/d<CR>:w<CR>
 
 autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
 
@@ -94,21 +94,53 @@ function! FindInJavaFiles()
     call SearchJavaFiles(l:pattern)
 endfunction
 
+function! FindInGoFiles()
+    call inputsave()
+    let pattern = input('Find in Go files: ')
+    call inputrestore()
+    call SearchXCoreGoFiles(l:pattern)
+endfunction
+
 function! SearchJsFiles(pattern)
     call SearchAnyFiles("--exclude bundle.js --include \\*.js --exclude-dir build --exclude-dir node-modules", a:pattern, "")
 endfunction
 
 function! SearchPyFiles(pattern)
-    call SearchAnyFiles("--include \\*.py ", a:pattern, "/hoisted")
+    call SearchAnyFiles("--include \\*.py ", a:pattern, "")
 endfunction
 
 function! SearchJavaFiles(pattern)
     call SearchAnyFiles("--include \\*.java ", a:pattern, "/rebase")
 endfunction
 
+function! SearchGoServices(pattern)
+    let git_root=system('git rev-parse --show-toplevel')
+    execute "lgrep --include \\*.go ".a:pattern." ".git_root."/services"
+    lop
+endfunction
+
+function! SearchGoLib(pattern)
+    let l:git_root=system('git rev-parse --show-toplevel')."/lib/go/sr/xinova"
+    execute "lgrep --include \\*.go ".a:pattern." ".l:git_root
+    lop
+endfunction
+
+function! SearchXcoreGo(pattern)
+    let git_root=system('git rev-parse --show-toplevel')
+    execute "lgrep --include \\*.go ".a:pattern." ".git_root
+    lop
+endfunction
+
 nmap <Leader>[ :call SearchPyFiles(expand('<cword>'))<CR><CR>
 nmap <Leader>js :call SearchJsFiles(expand('<cword>'))<CR><CR>
 nmap <Leader>jv :call SearchJavaFiles(expand('<cword>'))<CR><CR>
+nmap <Leader>jxg :call SearchXcoreGo(expand('<cword>'))<CR><CR>
+nmap <Leader>jgs :call SearchGoServices(expand('<cword>'))<CR><CR>
+nmap <Leader>jgl :call SearchGoLib(expand('<cword>'))<CR><CR>
 nmap <Leader>fjs :call FindInJSFiles()<CR><CR>
 nmap <Leader>fjv :call FindInJavaFiles()<CR><CR>
 nmap <Leader>fpy :call FindInPyFiles()<CR><CR>
+nmap <Leader>fgo :call FindInGoFiles()<CR><CR>
+nmap <Leader>gl :tabe ~/repos/xcore/lib/go/src/xinova<CR>
+nmap <Leader>gs :tabe ~/repos/xcore/services<CR>
+nmap <Leader>gx :tabe ~/repos/xcore<CR>
