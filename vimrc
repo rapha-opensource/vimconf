@@ -8,7 +8,7 @@ filetype on
 " enable loading indent file for filetype
 filetype plugin indent on
 
-set autochdir
+"set autochdir
 set number
 set ruler
 set hls is ic scs
@@ -31,9 +31,12 @@ set switchbuf+=usetab,newtab
 
 " command-T options:
 " caches every dirs, uses more memory.
+let g:CommandTMaxFiles=1000000
+let g:CommandTMaxDepth=30
 let g:CommandTMaxCachedDirectories=0 
+let g:CommandTFileScanner="git"
 "let g:CommandTWildIgnore=&wildignore . "*/__pycache__/**,*.pyc,venv/**,*jpg,*.dg,*.svg,~/repo/react-app/node_modules/**,~/repo/react-app/build/**"
-let g:CommandTWildIgnore="*.pyc,node_modules/**,build/**,img/**,font/**"
+let g:CommandTWildIgnore="*.pyc,**/node_modules/*,**/build/*,**/img/*,**/font/*"
 
 imap kj <Esc>:w<CR>
 nmap gb gT
@@ -55,7 +58,8 @@ nmap <Leader>, :s/, /,\r/g<CR>
 " clear all breakpoints in python
 "autocmd FileType python nmap <Leader>cbp :g/import pdb; pdb.set_trace/d<CR>:w<CR>
 
-autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
+"autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
+autocmd BufWritePre *.py execute ':Black'
 
 " Javascript specific
 "
@@ -98,7 +102,7 @@ function! FindInGoFiles()
     call inputsave()
     let pattern = input('Find in Go files: ')
     call inputrestore()
-    call SearchXCoreGoFiles(l:pattern)
+    call SearchXcoreGo(l:pattern)
 endfunction
 
 function! SearchJsFiles(pattern)
@@ -113,9 +117,9 @@ function! SearchJavaFiles(pattern)
     call SearchAnyFiles("--include \\*.java ", a:pattern, "/rebase")
 endfunction
 
-function! SearchGoServices(pattern)
+function! SearchXGo(pattern)
     let git_root=system('git rev-parse --show-toplevel')
-    execute "lgrep --include \\*.go ".a:pattern." ".git_root."/services"
+    execute "lgrep -Rn --include \\*.go  --include-dir services --include-dir lib/go/src/xinova"
     lop
 endfunction
 
@@ -134,9 +138,9 @@ endfunction
 nmap <Leader>[ :call SearchPyFiles(expand('<cword>'))<CR><CR>
 nmap <Leader>js :call SearchJsFiles(expand('<cword>'))<CR><CR>
 nmap <Leader>jv :call SearchJavaFiles(expand('<cword>'))<CR><CR>
-nmap <Leader>jxg :call SearchXcoreGo(expand('<cword>'))<CR><CR>
-nmap <Leader>jgs :call SearchGoServices(expand('<cword>'))<CR><CR>
-nmap <Leader>jgl :call SearchGoLib(expand('<cword>'))<CR><CR>
+nmap <Leader>xg :call SearchXGo(expand('<cword>'))<CR><CR>
+nmap <Leader>xgs :call SearchGoServices(expand('<cword>'))<CR><CR>
+nmap <Leader>xgl :call SearchGoLib(expand('<cword>'))<CR><CR>
 nmap <Leader>fjs :call FindInJSFiles()<CR><CR>
 nmap <Leader>fjv :call FindInJavaFiles()<CR><CR>
 nmap <Leader>fpy :call FindInPyFiles()<CR><CR>
@@ -144,3 +148,4 @@ nmap <Leader>fgo :call FindInGoFiles()<CR><CR>
 nmap <Leader>gl :tabe ~/repos/xcore/lib/go/src/xinova<CR>
 nmap <Leader>gs :tabe ~/repos/xcore/services<CR>
 nmap <Leader>gx :tabe ~/repos/xcore<CR>
+nmap <Leader>cwd :tabe `dirname %`<CR>

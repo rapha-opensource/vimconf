@@ -31,3 +31,6 @@
 [submodule "bundle/black"]
 	path = bundle/black
 	url = https://github.com/ambv/black
+[submodule "bundle/vim-fugitive"]
+	path = bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
