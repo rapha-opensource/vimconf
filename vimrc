@@ -45,20 +45,13 @@ nmap <Leader>v :tabe $MYVIMRC <CR>
 nmap <Leader>sv :source $MYVIMRC <CR>
 "Ctrl+n to turn off highlighting
 nmap <silent> <C-n> :noh<CR>
-"set wildignore+=~/repo/api/venv/**,*.pyc
 nmap <Leader>] :execute "vimgrep /" . expand("<cword>") . "/j **/*.py" <Bar> cw<CR>
 vmap <Leader>= :w !pbcopy<CR><CR>
-"nmap <Leader>' :s/#012/\r/g<CR>
 nmap <Leader>( :s/(\(.*\))/(\r\1\r)<CR>
 nmap <Leader>, :s/, /,\r/g<CR>
+nmap <Leader>" yiwciw"<C-R>""<ESC>
 
 " ----- Python specific mapping --------------------------------------------------
-" add a breakpoint in python
-"autocmd FileType python nmap <Leader>d ggOimport pdb; pdb.set_trace()<Esc>==:w<CR>
-" clear all breakpoints in python
-"autocmd FileType python nmap <Leader>cbp :g/import pdb; pdb.set_trace/d<CR>:w<CR>
-
-"autocmd FileType python map <buffer> <Leader>8 :call Flake8()<CR>
 autocmd BufWritePre *.py execute ':Black'
 
 " Javascript specific
@@ -102,7 +95,7 @@ function! FindInGoFiles()
     call inputsave()
     let pattern = input('Find in Go files: ')
     call inputrestore()
-    call SearchXcoreGo(l:pattern)
+    call SearchXGo(l:pattern)
 endfunction
 
 function! SearchJsFiles(pattern)
@@ -118,9 +111,8 @@ function! SearchJavaFiles(pattern)
 endfunction
 
 function! SearchXGo(pattern)
-    let git_root=system('git rev-parse --show-toplevel')
-    execute "lgrep -Rn --include \\*.go  --include-dir services --include-dir lib/go/src/xinova"
-    lop
+    execute "Ggrep ".a:pattern
+    tab cwin
 endfunction
 
 function! SearchGoLib(pattern)
