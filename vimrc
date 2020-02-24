@@ -23,6 +23,12 @@ colorscheme solarized
 set tabstop=4
 set shiftwidth=4
 set expandtab
+if has("autocmd")
+
+    " If the filetype is Makefile then we need to use tabs
+    " So do not expand tabs into space.
+    autocmd FileType sh set noexpandtab
+endif
 
 " with this, opening a file in the quickfix or location list
 " will open a new tab or switch to the tab that has this buffer
@@ -137,7 +143,4 @@ nmap <Leader>fjs :call FindInJSFiles()<CR><CR>
 nmap <Leader>fjv :call FindInJavaFiles()<CR><CR>
 nmap <Leader>fpy :call FindInPyFiles()<CR><CR>
 nmap <Leader>fgo :call FindInGoFiles()<CR><CR>
-nmap <Leader>gl :tabe ~/repos/xcore/lib/go/src/xinova<CR>
-nmap <Leader>gs :tabe ~/repos/xcore/services<CR>
-nmap <Leader>gx :tabe ~/repos/xcore<CR>
 nmap <Leader>cwd :tabe `dirname %`<CR>
