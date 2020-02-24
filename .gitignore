@@ -2,3 +2,4 @@
 autoload
 *.swp
 black/
+pack/
