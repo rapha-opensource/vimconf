@@ -3,3 +3,4 @@ autoload
 *.swp
 black/
 pack/
+plugin/
