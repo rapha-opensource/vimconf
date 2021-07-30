@@ -2,6 +2,8 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#helptags()
 execute pathogen#infect()
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 syntax on
 " try to detect filetypes
 filetype on
@@ -39,6 +41,8 @@ endif
 " will open a new tab or switch to the tab that has this buffer
 set switchbuf+=usetab,newtab
 
+" ctrl-p options
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/extern/*
 
 " -----  Command-T options ---------------------------------------------------------
 " caches every dirs, uses more memory.
