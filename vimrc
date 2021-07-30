@@ -40,7 +40,7 @@ endif
 set switchbuf+=usetab,newtab
 
 
-" command-T options:
+" -----  Command-T options ---------------------------------------------------------
 " caches every dirs, uses more memory.
 let g:CommandTMaxFiles=1000000
 let g:CommandTMaxDepth=30
@@ -48,7 +48,10 @@ let g:CommandTMaxCachedDirectories=0
 let g:CommandTFileScanner="git"
 "let g:CommandTWildIgnore=&wildignore . "*/__pycache__/**,*.pyc,venv/**,*jpg,*.dg,*.svg,~/repo/react-app/node_modules/**,~/repo/react-app/build/**"
 let g:CommandTWildIgnore="*.pyc,**/node_modules/*,**/build/*,**/img/*,**/font/*"
+" -----  Command-T options ---------------------------------------------------------
 
+
+" --------  Shortcuts ------------------------------------------------------------
 imap kj <Esc>:w<CR>
 nmap gb gT
 nmap <C-x> :bd<CR>
@@ -61,13 +64,24 @@ vmap <Leader>= :w !pbcopy<CR><CR>
 nmap <Leader>( :s/(\(.*\))/(\r\1\r)<CR>
 nmap <Leader>, :s/, /,\r/g<CR>
 nmap <Leader>" yiwciw"<C-R>""<ESC>
+nmap <Leader>cwd :tabe `dirname %`<CR>
+nmap <leader>gb :Gblame<CR>
+" --------  Shortcuts ------------------------------------------------------------
+
 
 " ----- Svelte specific stuff  ----------------------------------------------
-au! BufNewFile,BufRead *.svelte set ft=html
+let g:vim_svelte_plugin_load_full_syntax = 1
+"au! BufNewFile,BufRead,BufReadPost *.svelte set filetype=html
+let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
+let g:ale_linters = {'svelte': ['stylelint', 'eslint']}
+let g:ale_fixers = {'svelte': ['eslint', 'prettier', 'prettier_standard']}
 " ----- Svelte specific stuff  ----------------------------------------------
+
 
 " ----- Python specific mapping --------------------------------------------------
 autocmd BufWritePre *.py execute ':Black'
+" ----- Python specific mapping --------------------------------------------------
+
 
 " Javascript specific
 "
@@ -159,4 +173,3 @@ nmap <Leader>fjs :call FindInJSFiles()<CR><CR>
 nmap <Leader>fjv :call FindInJavaFiles()<CR><CR>
 nmap <Leader>fpy :call FindInPyFiles()<CR><CR>
 nmap <Leader>fgo :call FindInGoFiles()<CR><CR>
-nmap <Leader>cwd :tabe `dirname %`<CR>
