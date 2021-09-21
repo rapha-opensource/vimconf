@@ -29,6 +29,7 @@ set expandtab
 " uncomment the following for photogrammetry-js code...
 autocmd Filetype javascript setlocal ts=4 sw=4 expandtab
 autocmd Filetype html setlocal ts=4 sw=4 expandtab
+autocmd Filetype matlab setlocal ts=2 sw=2 expandtab
 "autocmd Filetype python setlocal ts=3 sw=3 expandtab
 
 if has("autocmd")
